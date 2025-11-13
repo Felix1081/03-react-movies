@@ -21,11 +21,13 @@ interface FetchMoviesParams {
   year?: string;
 }
 
-export async function fetchMovies(params: FetchMoviesParams): Promise<Movie[]> {
+export async function fetchMovies(
+  params: FetchMoviesParams
+): Promise<FetchMoviesResponse> {
   const url = `${TMBD_BASE_URL}/search/movie`;
   const response = await axios.get<FetchMoviesResponse>(url, {
     params,
     headers: { Authorization: `Bearer ${TMBD_TOKEN}` },
   });
-  return response.data.results;
+  return response.data;
 }
